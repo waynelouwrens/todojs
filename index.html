@@ -97,10 +97,24 @@
           Todo: <span id="todo-count">1</span> •
           Done: <span id="completed-count">0</span> •
           Total: <span id="total-count">1</span>
+
+        <a href="#" onClick="cleanUpDoneTodos(); return false">Clean up</a>
+</div>
         </div>
       </div>
 
       <script>
+
+        function cleanUpDoneTodos() {
+          var list = document.getElementById("todolist");
+          var doneItems = document.getElementsByClassName("completed");
+
+        for (var i = doneItems.length; i > 0; i--) {
+          list.removeChild(doneItems[i-1]);
+    }
+
+    updateCounters();
+  }
 
       function submitTodo() {
         var inputField = document.getElementById("new-todo");
@@ -139,7 +153,6 @@
         function nextTodoId() {
           return document.getElementsByClassName("todo").length + 1;
         }
-
 
 
       function toggleDone() {
