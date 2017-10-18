@@ -79,7 +79,7 @@
       <div class="container">
         <h1>TodoList</h1>
 
-        <form>
+        <form onSubmit= "submitTodo(); return false">
           <input type="text" id="new-todo" placeholder="What needs to be done?">
         </form>
 
@@ -101,6 +101,47 @@
       </div>
 
       <script>
+
+      function submitTodo() {
+        var inputField = document.getElementById("new-todo");
+        var newTodoTitle = inputField.value;
+        createTodo(newTodoTitle);
+
+        inputField.value = null;
+        updateCounters();
+        }
+
+        function createTodo(title) {
+
+          var listItem = document.createElement("li");
+          listItem.className = "todo";
+
+
+          var checkbox = document.createElement("input");
+          checkbox.type = "checkbox";
+          checkbox.id = "todo-" + nextTodoId();
+          checkbox.checked = false;
+          checkbox.onchange = toggleDone.bind(checkbox);
+          listItem.appendChild(checkbox);
+
+          var space = document.createTextNode(" ");
+          listItem.appendChild(space);
+
+          var label = document.createElement("label");
+          label.htmlFor = checkbox.id;
+          label.innerHTML = title;
+          listItem.appendChild(label);
+
+          var list = document.getElementById("todolist");
+          list.appendChild(listItem);
+        }
+
+        function nextTodoId() {
+          return document.getElementsByClassName("todo").length + 1;
+        }
+
+
+
       function toggleDone() {
         var checkbox = this;
 
