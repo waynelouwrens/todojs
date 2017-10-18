@@ -74,47 +74,59 @@
       text-decoration: underline;
     }
   </style>
-</head>
-<body>
-  <div class="container">
-    <h1>TodoList</h1>
+    </head>
+    <body>
+      <div class="container">
+        <h1>TodoList</h1>
 
-    <form>
-      <input type="text" id="new-todo" placeholder="What needs to be done?">
-    </form>
+        <form>
+          <input type="text" id="new-todo" placeholder="What needs to be done?">
+        </form>
 
-    <ul id="todolist">
-      <li class="todo">
-        <input id="todo-1" type="checkbox">
-        <label for="todo-1">Sweep the floor</label>
-      </li>
-      <li class="todo completed">
-        <input id="todo-2" type="checkbox" checked>
-        <label for="todo-2">Dust the vases</label>
-      </li>
-    </ul>
-    <div class="footer">
-      Todo: <span id="todo-count">1</span> •
-      Done: <span id="completed-count">0</span> •
-      Total: <span id="total-count">1</span>
-    </div>
-  </div>
+        <ul id="todolist">
+          <li class="todo">
+            <input id="todo-1" type="checkbox" onChange = "toggleDone.bind(this)();">
+            <label for="todo-1">Sweep the floor</label>
+          </li>
+          <li class="todo completed">
+            <input id="todo-2" type="checkbox" onChange = "toggleDone.bind(this)();">
+            <label for="todo-2">Dust the vases</label>
+          </li>
+        </ul>
+        <div class="footer">
+          Todo: <span id="todo-count">1</span> •
+          Done: <span id="completed-count">0</span> •
+          Total: <span id="total-count">1</span>
+        </div>
+      </div>
 
-  <script>
-  function updateCounters() {
-    var totalCount = document.getElementById('total-count');
-    var totalTodos = document.getElementsByClassName("todo").length;
-    totalCount.innerHTML = totalTodos;
+      <script>
+      function toggleDone() {
+        var checkbox = this;
 
-    var completedCount = document.getElementById('completed-count');
-    var completedTodos = document.getElementsByClassName("completed").length;
-    completedCount.innerHTML = completedTodos;
+        if (checkbox.checked) {
+          checkbox.parentElement.className = "todo completed";
+        } else {
+          checkbox.parentElement.className = "todo";
+        }
 
-    var todoCount = document.getElementById('todo-count');
-    var uncompletedTodos = totalTodos - completedTodos;
-    todoCount.innerHTML = uncompletedTodos;
-  }
-  updateCounters();
+        updateCounters();
+      }
+
+      function updateCounters() {
+        var totalCount = document.getElementById('total-count');
+        var totalTodos = document.getElementsByClassName("todo").length;
+        totalCount.innerHTML = totalTodos;
+
+        var completedCount = document.getElementById('completed-count');
+        var completedTodos = document.getElementsByClassName("completed").length;
+        completedCount.innerHTML = completedTodos;
+
+        var todoCount = document.getElementById('todo-count');
+        var uncompletedTodos = totalTodos - completedTodos;
+        todoCount.innerHTML = uncompletedTodos;
+      }
+      updateCounters();
 
 
   </script>
